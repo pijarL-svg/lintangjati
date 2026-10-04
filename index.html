@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Halooo Aku Lintang | Digital Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --bg: #061a2e;
+        --card: rgba(255, 255, 255, 0.04);
+        --border: rgba(56, 189, 248, 0.15);
+        --primary: #0ea5e9;
+        --secondary: #38bdf8;
+        --accent: #0284c7;
+        --text: #e0f2fe;
+        --muted: #94a3b8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Space Grotesk', sans-serif;
+        background: #061a2e;
+        background-image:
+            radial-gradient(circle at 15% 20%, rgba(14, 165, 233, 0.35), transparent 45%),
+            radial-gradient(circle at 85% 80%, rgba(56, 189, 248, 0.3), transparent 45%),
+            radial-gradient(circle at 70% 30%, rgba(2, 132, 199, 0.25), transparent 40%);
+        background-attachment: fixed;
+        color: var(--text);
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    #particles {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .cursor-glow {
+        position: fixed;
+        width: 400px; height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(14, 165, 233, 0.2), transparent 70%);
+        pointer-events: none;
+        z-index: 1;
+        transform: translate(-50%, -50%);
+        top: -500px; left: -500px;
+    }
+
+    .container {
+        position: relative;
+        z-index: 2;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 60px 20px 40px;
+    }
+
+    /* ============ HERO ============ */
+    .hero {
+        background: var(--card);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        padding: 50px 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        animation: fadeUp 0.8s ease;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(14, 165, 233, 0.1);
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 100%; height: 2px;
+        background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+        animation: shine 3s linear infinite;
+    }
+
+    @keyframes shine { to { left: 100%; } }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .avatar-wrapper {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 25px;
+    }
+
+    .avatar {
+        width: 130px; height: 130px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 52px;
+        font-weight: 700;
+        color: white;
+        font-family: 'JetBrains Mono', monospace;
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 0 40px rgba(14, 165, 233, 0.6);
+        animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 40px rgba(14, 165, 233, 0.6); }
+        50% { box-shadow: 0 0 60px rgba(56, 189, 248, 0.9); }
+    }
+
+    .avatar-ring {
+        position: absolute;
+        inset: -10px;
+        border-radius: 50%;
+        border: 2px dashed rgba(56, 189, 248, 0.6);
+        animation: spin 20s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .status-dot {
+        position: absolute;
+        bottom: 8px; right: 8px;
+        width: 22px; height: 22px;
+        background: #22c55e;
+        border-radius: 50%;
+        border: 4px solid #061a2e;
+        z-index: 3;
+        animation: blink 2s ease-in-out infinite;
+        box-shadow: 0 0 15px #22c55e;
+    }
+
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+        font-size: clamp(26px, 5vw, 40px);
+        font-weight: 700;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, #ffffff 0%, #7dd3fc 50%, #0ea5e9 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.5px;
+    }
+
+    .typed-text {
+        font-family: 'JetBrains Mono', monospace;
+        color: var(--secondary);
+        font-size: 15px;
+        margin-bottom: 20px;
+        min-height: 22px;
+    }
+
+    .cursor-blink {
+        display: inline-block;
+        width: 8px; height: 16px;
+        background: var(--secondary);
+        margin-left: 3px;
+        vertical-align: middle;
+        animation: blinkCursor 1s step-end infinite;
+    }
+
+    @keyframes blinkCursor {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+
+    .nim-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(14, 165, 233, 0.15);
+        border: 1px solid rgba(14, 165, 233, 0.4);
+        color: #7dd3fc;
+        padding: 8px 20px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: 'JetBrains Mono', monospace;
+        letter-spacing: 0.5px;
+    }
+
+    .nim-badge::before {
+        content: '';
+        width: 8px; height: 8px;
+        background: #22c55e;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #22c55e;
+    }
+
+    /* ============ CARD ============ */
+    .card {
+        background: var(--card);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 35px;
+        margin-top: 24px;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card.reveal {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.6), transparent);
+    }
+
+    .section-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 22px;
+        color: white;
+    }
+
+    .section-title .num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        color: #7dd3fc;
+        background: rgba(14, 165, 233, 0.15);
+        padding: 4px 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(14, 165, 233, 0.3);
+    }
+
+    .section-title .line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(56, 189, 248, 0.5), transparent);
+    }
+
+    .card p {
+        line-height: 1.8;
+        color: var(--muted);
+        font-size: 15px;
+    }
+
+    .card p strong { color: var(--secondary); font-weight: 600; }
+
+    /* INFO GRID */
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .info-item {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 18px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .info-item::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 3px;
+        background: linear-gradient(180deg, var(--primary), var(--secondary));
+    }
+
+    .info-item:hover {
+        transform: translateY(-4px);
+        border-color: rgba(56, 189, 248, 0.5);
+        box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+    }
+
+    .info-label {
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-family: 'JetBrains Mono', monospace;
+        margin-bottom: 6px;
+    }
+
+    .info-value {
+        font-size: 16px;
+        color: white;
+        font-weight: 600;
+    }
+
+    /* SKILLS */
+    .skill { margin-bottom: 20px; }
+
+    .skill:last-child { margin-bottom: 0; }
+
+    .skill-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .skill-name { color: white; font-weight: 500; }
+
+    .skill-percent {
+        color: var(--secondary);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+    }
+
+    .skill-bar {
+        height: 8px;
+        background: rgba(56, 189, 248, 0.08);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .skill-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        border-radius: 10px;
+        width: 0;
+        transition: width 1.5s ease;
+        box-shadow: 0 0 15px rgba(14, 165, 233, 0.7);
+    }
+
+    /* HOBI */
+    .hobi-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .hobi-tag {
+        background: rgba(56, 189, 248, 0.05);
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 10px 18px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .hobi-tag:hover {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        border-color: transparent;
+        color: white;
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(14, 165, 233, 0.5);
+    }
+
+    /* FOOTER */
+    footer {
+        text-align: center;
+        padding: 40px 20px 20px;
+        color: var(--muted);
+        font-size: 13px;
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    footer .heart {
+        color: var(--secondary);
+        animation: heartbeat 1.5s ease-in-out infinite;
+        display: inline-block;
+    }
+
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.3); }
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #061a2e; }
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, var(--primary), var(--secondary));
+        border-radius: 10px;
+    }
+
+    @media (max-width: 600px) {
+        .container { padding: 30px 14px 20px; }
+        .hero { padding: 35px 22px; border-radius: 22px; }
+        .card { padding: 25px 20px; border-radius: 20px; }
+        .avatar { width: 100px; height: 100px; font-size: 40px; }
+        .section-title { font-size: 17px; }
+    }
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="avatar-wrapper">
+            <div class="avatar-ring"></div>
+            <div class="avatar">MR</div>
+            <div class="status-dot"></div>
+        </div>
+        <h1>Halooo Aku Lintang!!!</h1>
+        <div class="typed-text">
+            <span id="typed"></span><span class="cursor-blink"></span>
+        </div>
+        <div class="nim-badge">NIM · 2405110030</div>
+    </div>
+
+    <!-- 01 TENTANG SAYA -->
+    <div class="card">
+        <div class="section-title">
+            <span class="num">01</span>
+            <span>Tentang Saya</span>
+            <span class="line"></span>
+        </div>
+        <p>
+            Halo!! Saya <strong>Muhammad Pijar Lintangjati</strong>, mahasiswa dengan NIM
+            <strong>2405110030</strong>. Saya ingin memiliki passion di dunia
+            <strong>teknologi</strong>, <strong>pemrograman</strong>, dan
+            <strong>pengembangan web</strong>. Halaman ini adalah representasi digital
+            saya.
+        </p>
+    </div>
+
+    <!-- 02 INFORMASI PRIBADI -->
+    <div class="card">
+        <div class="section-title">
+            <span class="num">02</span>
+            <span>Informasi Pribadi</span>
+            <span class="line"></span>
+        </div>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Nama Lengkap</div>
+                <div class="info-value">Muhammad Pijar Lintangjati</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">NIM</div>
+                <div class="info-value">2405110030</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Status</div>
+                <div class="info-value">Mahasiswa Aktif</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Jurusan</div>
+                <div class="info-value">Teknik Komputer</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 03 KEAHLIAN -->
+    <div class="card">
+        <div class="section-title">
+            <span class="num">03</span>
+            <span>Keahlian</span>
+            <span class="line"></span>
+        </div>
+
+        <div class="skill">
+            <div class="skill-header">
+                <span class="skill-name">HTML &amp; CSS</span>
+                <span class="skill-percent">60%</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
+        </div>
+
+        <div class="skill">
+            <div class="skill-header">
+                <span class="skill-name">JavaScript</span>
+                <span class="skill-percent">60%</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill" data-width="75%"></div></div>
+        </div>
+
+        <div class="skill">
+            <div class="skill-header">
+                <span class="skill-name">Arduino &amp; Mikrokontroler</span>
+                <span class="skill-percent">80%</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill" data-width="80%"></div></div>
+        </div>
+
+        <div class="skill">
+            <div class="skill-header">
+                <span class="skill-name">Jaringan Komputer</span>
+                <span class="skill-percent">75%</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill" data-width="78%"></div></div>
+        </div>
+    </div>
+
+    <!-- 04 MINAT & HOBI -->
+    <div class="card">
+        <div class="section-title">
+            <span class="num">04</span>
+            <span>Minat &amp; Hobi</span>
+            <span class="line"></span>
+        </div>
+        <div class="hobi-list">
+            <span class="hobi-tag">Olahraga</span>
+            <span class="hobi-tag">Elektronika</span>
+            <span class="hobi-tag">Otomotif</span>
+            <span class="hobi-tag">Mendesain</span>
+            <span class="hobi-tag">Gaming</span>
+            <span class="hobi-tag">Musik</span>
+            <span class="hobi-tag">Bernyanyi</span>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 Muhammad Pijar Lintangjati · NIM 2405110030<br>
+        Dibuat dengan <span class="heart"></span> &amp; JavaScript
+    </footer>
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    /* ============ PARTIKEL ============ */
+    try {
+        var canvas = document.getElementById('particles');
+        if (canvas && canvas.getContext) {
+            var ctx = canvas.getContext('2d');
+            var particles = [];
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            function makeParticle() {
+                return {
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    color: Math.random() > 0.5 ? '56,189,248' : '14,165,233'
+                };
+            }
+
+            var count = Math.min(70, Math.floor(window.innerWidth / 25));
+            for (var i = 0; i < count; i++) particles.push(makeParticle());
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (var i = 0; i < particles.length; i++) {
+                    var p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0) p.x = canvas.width;
+                    if (p.x > canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = canvas.height;
+                    if (p.y > canvas.height) p.y = 0;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(' + p.color + ',0.7)';
+                    ctx.fill();
+
+                    for (var j = i + 1; j < particles.length; j++) {
+                        var q = particles[j];
+                        var dx = p.x - q.x, dy = p.y - q.y;
+                        var d = Math.sqrt(dx * dx + dy * dy);
+                        if (d < 120) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = 'rgba(56,189,248,' + (0.18 * (1 - d / 120)) + ')';
+                            ctx.lineWidth = 1;
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(q.x, q.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+    } catch (e) { console.warn('Partikel error:', e); }
+
+    /* ============ CURSOR GLOW ============ */
+    try {
+        var glow = document.getElementById('cursorGlow');
+        if (glow) {
+            document.addEventListener('mousemove', function (e) {
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+            });
+        }
+    } catch (e) { console.warn('Glow error:', e); }
+
+    /* ============ TYPING EFFECT ============ */
+    try {
+        var typedEl = document.getElementById('typed');
+        if (typedEl) {
+            var texts = [
+                'Mahasiswa Teknik Komputer',
+                'Web Developer Enthusiast',
+                'Embedded System Learner',
+                'NIM 2405110042'
+            ];
+            var ti = 0, ci = 0, del = false;
+
+            function loop() {
+                var cur = texts[ti];
+                if (!del) {
+                    typedEl.textContent = cur.substring(0, ci + 1);
+                    ci++;
+                    if (ci === cur.length) {
+                        del = true;
+                        setTimeout(loop, 1800);
+                        return;
+                    }
+                } else {
+                    typedEl.textContent = cur.substring(0, ci - 1);
+                    ci--;
+                    if (ci === 0) {
+                        del = false;
+                        ti = (ti + 1) % texts.length;
+                    }
+                }
+                setTimeout(loop, del ? 50 : 100);
+            }
+            loop();
+        }
+    } catch (e) { console.warn('Typing error:', e); }
+
+    /* ============ REVEAL ON SCROLL ============ */
+    try {
+        var cards = document.querySelectorAll('.card');
+        if ('IntersectionObserver' in window) {
+            var obs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal');
+                        var bars = entry.target.querySelectorAll('.skill-fill');
+                        bars.forEach(function (bar, i) {
+                            setTimeout(function () {
+                                bar.style.width = bar.getAttribute('data-width');
+                            }, 200 + i * 150);
+                        });
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            cards.forEach(function (c) { obs.observe(c); });
+        } else {
+            cards.forEach(function (c) {
+                c.classList.add('reveal');
+                var bars = c.querySelectorAll('.skill-fill');
+                bars.forEach(function (bar) {
+                    bar.style.width = bar.getAttribute('data-width');
+                });
+            });
+        }
+    } catch (e) { console.warn('Reveal error:', e); }
+
+})();
+</script>
+</body>
+</html>
